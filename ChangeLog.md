@@ -80,6 +80,10 @@
 #### Az.Storage 9.7.1
 * Updated storage account identity handling to explicitly use the Storage SDK 'Identity' model in 'New-AzStorageAccount' and 'Set-AzStorageAccount'.
 
+#### Az.Websites 4.0.1
+* Added Async Scaling support for App Service Plans in 'New-AzAppServicePlan' and 'Set-AzAppServicePlan'
+    - Added '-AsyncScalingEnabled' to support the ARM (Azure Resource Manager) property 'asyncScalingEnabled'
+
 ## 16.0.0 - June 2026
 #### Az.Accounts 5.5.0
 * Added ChangeSafety Support

@@ -16,8 +16,8 @@ Sets an Azure App Service plan.
 ### S1
 ```
 Set-AzAppServicePlan [[-AdminSiteName] <String>] [[-Tier] <String>] [[-NumberofWorkers] <Int32>]
- [[-WorkerSize] <String>] [-PerSiteScaling <Boolean>] [-AsJob] [-Tag <Hashtable>] [-ResourceGroupName] <String>
- [-Name] <String> [-DefaultProfile <IAzureContextContainer>]
+ [[-WorkerSize] <String>] [-PerSiteScaling <Boolean>] [-AsyncScalingEnabled <Boolean>] [-AsJob]
+ [-Tag <Hashtable>] [-ResourceGroupName] <String> [-Name] <String> [-DefaultProfile <IAzureContextContainer>]
  [-AcquirePolicyToken] [-ChangeReference <String>] [<CommonParameters>]
 ```
 
@@ -184,6 +184,21 @@ Aliases:
 Required: False
 Position: Named
 Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -AsyncScalingEnabled
+Async Scaling Boolean
+
+```yaml
+Type: System.Boolean
+Parameter Sets: S1
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```

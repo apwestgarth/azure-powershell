@@ -18,6 +18,8 @@
         - Additional information about change #1
 -->
 ## Upcoming Release
+* Added Async Scaling support for App Service Plans in `New-AzAppServicePlan` and `Set-AzAppServicePlan`
+    - Added support for setting the `asyncScalingEnabled` ARM property with `-AsyncScalingEnabled $true` or `$false`
 
 ## Version 4.0.0
 * Added ChangeSafety Support

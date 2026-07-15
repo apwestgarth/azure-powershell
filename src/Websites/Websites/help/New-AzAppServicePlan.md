@@ -17,8 +17,8 @@ Creates an Azure App Service plan in a given Geo location.
 ```
 New-AzAppServicePlan [-Location] <String> [[-Tier] <String>] [[-NumberofWorkers] <Int32>]
  [[-WorkerSize] <String>] [[-AseName] <String>] [[-AseResourceGroupName] <String>] [[-AseResourceId] <String>]
- [-PerSiteScaling <Boolean>] [-HyperV] [-AsJob] [-Tag <Hashtable>] [-Linux] [-ResourceGroupName] <String>
- [-Name] <String> [-DefaultProfile <IAzureContextContainer>]
+ [-PerSiteScaling <Boolean>] [-AsyncScalingEnabled <Boolean>] [-HyperV] [-AsJob] [-Tag <Hashtable>]
+ [-Linux] [-ResourceGroupName] <String> [-Name] <String> [-DefaultProfile <IAzureContextContainer>]
  [-AcquirePolicyToken] [-ChangeReference <String>] [<CommonParameters>]
 ```
 
@@ -26,7 +26,7 @@ New-AzAppServicePlan [-Location] <String> [[-Tier] <String>] [[-NumberofWorkers]
 ```
 New-AzAppServicePlan [-Location] <String> [[-Tier] <String>] [[-NumberofWorkers] <Int32>]
  [[-WorkerSize] <String>] [[-AseName] <String>] [[-AseResourceGroupName] <String>] [[-AseResourceId] <String>]
- [-PerSiteScaling <Boolean>] [-AsJob] [-AppServicePlan] <PSAppServicePlan>
+ [-PerSiteScaling <Boolean>] [-AsyncScalingEnabled <Boolean>] [-AsJob] [-AppServicePlan] <PSAppServicePlan>
  [-DefaultProfile <IAzureContextContainer>] [-AcquirePolicyToken]
  [-ChangeReference <String>] [<CommonParameters>]
 ```
@@ -243,6 +243,21 @@ Accept wildcard characters: False
 
 ### -PerSiteScaling
 Whether or not to enable Per Site Scaling
+
+```yaml
+Type: System.Boolean
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -AsyncScalingEnabled
+Whether or not to enable Async Scaling
 
 ```yaml
 Type: System.Boolean

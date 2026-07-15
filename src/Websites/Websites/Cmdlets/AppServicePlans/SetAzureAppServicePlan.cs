@@ -49,6 +49,9 @@ namespace Microsoft.Azure.Commands.WebApps.Cmdlets.AppServicePlans
         [ValidateNotNullOrEmpty]
         public bool PerSiteScaling { get; set; }
 
+        [Parameter(ParameterSetName = ParameterSet1Name, Mandatory = false, HelpMessage = "Whether or not to enable Async Scaling")]
+        public bool? AsyncScalingEnabled { get; set; }
+
         [Parameter(Mandatory = false, HelpMessage = "Run cmdlet in the background")]
         public SwitchParameter AsJob { get; set; }
         [Parameter(ParameterSetName = ParameterSet1Name, Mandatory = false, HelpMessage = "Tags are name/value pairs that enable you to categorize resources")]
@@ -66,6 +69,14 @@ namespace Microsoft.Azure.Commands.WebApps.Cmdlets.AppServicePlans
                     int.TryParse(Regex.Match(AppServicePlan.Sku.Name, @"\d+").Value, out workerSizeAsNumber);
                     AppServicePlan.Sku.Name = string.IsNullOrWhiteSpace(WorkerSize) ? CmdletHelpers.GetSkuName(AppServicePlan.Sku.Tier, workerSizeAsNumber) : CmdletHelpers.GetSkuName(AppServicePlan.Sku.Tier, WorkerSize);
                     AppServicePlan.PerSiteScaling = PerSiteScaling;
+                    if (AsyncScalingEnabled.HasValue)
+                    {
+                        var asyncScalingEnabledProperty = AppServicePlan.GetType().GetProperty("AsyncScalingEnabled");
+                        if (asyncScalingEnabledProperty != null && asyncScalingEnabledProperty.CanWrite)
+                        {
+                            asyncScalingEnabledProperty.SetValue(AppServicePlan, AsyncScalingEnabled.Value);
+                        }
+                    }
                     if (Tag != null && AppServicePlan.Tags != null)
                         CmdletHelpers.ConvertToStringDictionary(Tag).ForEach(item =>
                         {
