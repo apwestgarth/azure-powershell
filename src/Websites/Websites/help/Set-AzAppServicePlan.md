@@ -189,7 +189,7 @@ Accept wildcard characters: False
 ```
 
 ### -AsyncScalingEnabled
-Async Scaling Boolean
+Whether or not to enable Async Scaling.
 
 ```yaml
 Type: System.Boolean
