@@ -42,6 +42,7 @@ function Test-CreateNewAppServicePlan
 		Assert-AreEqual $capacity $createResult.Sku.Capacity
 		Assert-AreEqual $tag.Keys $createResult.Tags.Keys
         Assert-AreEqual $tag.Values $createResult.Tags.Values
+        Assert-AreEqual $false $createResult.AsyncScalingEnabled
 		# Assert
 
 		$getResult = Get-AzAppServicePlan -ResourceGroupName $rgname -Name $whpName
@@ -49,6 +50,7 @@ function Test-CreateNewAppServicePlan
 		Assert-AreEqual "Standard" $getResult.Sku.Tier
 		Assert-AreEqual $skuName $getResult.Sku.Name
 		Assert-AreEqual $capacity $getResult.Sku.Capacity
+        Assert-AreEqual $false $getResult.AsyncScalingEnabled
 	}
 	finally
 	{
@@ -177,6 +179,7 @@ function Test-SetAppServicePlan
 	$newWorkerSize = "Medium"
 	$newCapacity = 2
 	$newPerSiteScaling = $true;
+    $newAsyncScalingEnabled = $true;
 	$tag= @{"TagKey" = "TagValue"}
 
 	try
@@ -194,7 +197,7 @@ function Test-SetAppServicePlan
 		Assert-AreEqual $perSiteScaling $result.PerSiteScaling
 
 		# Set the created service plan
-		$job = Set-AzAppServicePlan  -ResourceGroupName $rgname -Name  $whpName -Tier $newTier -NumberofWorkers $newCapacity -WorkerSize $newWorkerSize -PerSiteScaling $newPerSiteScaling -AsJob
+		$job = Set-AzAppServicePlan  -ResourceGroupName $rgname -Name  $whpName -Tier $newTier -NumberofWorkers $newCapacity -WorkerSize $newWorkerSize -PerSiteScaling $newPerSiteScaling -AsyncScalingEnabled $newAsyncScalingEnabled -AsJob
 		$job | Wait-Job
 		$newresult = $job | Receive-Job
 
@@ -204,12 +207,14 @@ function Test-SetAppServicePlan
 		Assert-AreEqual $newTier $newresult.Sku.Tier
 		Assert-AreEqual $newSkuName $newresult.Sku.Name
 		Assert-AreEqual $newPerSiteScaling $newresult.PerSiteScaling
+        Assert-AreEqual $newAsyncScalingEnabled $newresult.AsyncScalingEnabled
 
 		# Set service plan via pipeline
 		$newresult.Sku.Capacity = $capacity
 		$newresult.Sku.Tier = $tier
 		$newresult.Sku.Name = $skuName
 		$newresult.PerSiteScaling = $perSiteScaling
+        $newresult.AsyncScalingEnabled = $false
 
 		$newresult | Set-AzAppServicePlan
 
@@ -222,6 +227,7 @@ function Test-SetAppServicePlan
 		Assert-AreEqual $tier $newresult.Sku.Tier
 		Assert-AreEqual $skuName $newresult.Sku.Name
 		Assert-AreEqual $perSiteScaling $newresult.PerSiteScaling
+        Assert-AreEqual $false $newresult.AsyncScalingEnabled
 
 		#Set Tags
 		$tagsResult= Set-AzAppServicePlan  -ResourceGroupName $rgname -Name $whpName -Tag $tag

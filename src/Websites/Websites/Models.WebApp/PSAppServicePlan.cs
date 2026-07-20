@@ -14,6 +14,7 @@
 
 using Microsoft.Azure.Management.WebSites.Models;
 using Microsoft.WindowsAzure.Commands.Common.CustomAttributes;
+using System.Reflection;
 
 namespace Microsoft.Azure.Commands.WebApps.Models.WebApp
 {
@@ -46,7 +47,16 @@ namespace Microsoft.Azure.Commands.WebApps.Models.WebApp
             sku: other.Sku
             )
         {
-
+            PropertyInfo asyncScalingEnabledProperty = other.GetType().GetProperty("AsyncScalingEnabled");
+            if (asyncScalingEnabledProperty != null)
+            {
+                object val = asyncScalingEnabledProperty.GetValue(other, null);
+                PropertyInfo targetProperty = GetType().GetProperty("AsyncScalingEnabled");
+                if (val != null && targetProperty != null && targetProperty.CanWrite)
+                {
+                    targetProperty.SetValue(this, val, null);
+                }
+            }
         }
 
         public string AdminSiteName { get; set; }

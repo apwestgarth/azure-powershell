@@ -27,12 +27,12 @@ For information on how to develop for `Az.Websites`, see [how-to.md](how-to.md).
 > see https://aka.ms/autorest
 
 ``` yaml
-commit: ec2b6d1985ce89c8646276e0806a738338e98bd2
+commit: a8af50e319772b61703d996b6e65209ad565a2ac
 require:
   - $(this-folder)/../../readme.azure.noprofile.md
 input-file:
   - $(repo)/specification/web/resource-manager/Microsoft.Web/stable/2020-12-01/StaticSites.json
-  - $(repo)/specification/web/resource-manager/Microsoft.Web/stable/2021-02-01/WebApps.json
+  - $(repo)/specification/web/resource-manager/Microsoft.Web/AppService/stable/2026-03-15/openapi.json
 
 title: Websites
 module-version: 0.1.0
@@ -80,7 +80,7 @@ directive:
           "default": {
             "description": "App Service error response.",
             "schema": {
-              "$ref": "https://github.com/Azure/azure-rest-api-specs/blob/ec2b6d1985ce89c8646276e0806a738338e98bd2/specification/web/resource-manager/Microsoft.Web/stable/2020-12-01/CommonDefinitions.json#/definitions/DefaultErrorResponse"
+              "$ref": "https://github.com/Azure/azure-rest-api-specs/blob/a8af50e319772b61703d996b6e65209ad565a2ac/specification/web/resource-manager/Microsoft.Web/stable/2020-12-01/CommonDefinitions.json#/definitions/DefaultErrorResponse"
             }
           }
         }
@@ -101,7 +101,7 @@ directive:
           "default": {
             "description": "App Service error response.",
             "schema": {
-              "$ref": "https://github.com/Azure/azure-rest-api-specs/blob/ec2b6d1985ce89c8646276e0806a738338e98bd2/specification/web/resource-manager/Microsoft.Web/stable/2020-12-01/CommonDefinitions.json#/definitions/DefaultErrorResponse"
+              "$ref": "https://github.com/Azure/azure-rest-api-specs/blob/a8af50e319772b61703d996b6e65209ad565a2ac/specification/web/resource-manager/Microsoft.Web/stable/2020-12-01/CommonDefinitions.json#/definitions/DefaultErrorResponse"
             }
           }
         }
@@ -119,7 +119,7 @@ directive:
           "default": {
             "description": "App Service error response.",
             "schema": {
-              "$ref": "https://github.com/Azure/azure-rest-api-specs/blob/ec2b6d1985ce89c8646276e0806a738338e98bd2/specification/web/resource-manager/Microsoft.Web/stable/2020-12-01/CommonDefinitions.json#/definitions/DefaultErrorResponse"
+              "$ref": "https://github.com/Azure/azure-rest-api-specs/blob/a8af50e319772b61703d996b6e65209ad565a2ac/specification/web/resource-manager/Microsoft.Web/stable/2020-12-01/CommonDefinitions.json#/definitions/DefaultErrorResponse"
             }
           }
         }
@@ -1536,7 +1536,7 @@ directive:
     set:
       subject: SlotWebJob
 
-  # The service response result is "No route registered for '/api/webjobs/webjobname?api-version=2021-02-01'"
+  # The service response result is "No route registered for '/api/webjobs/webjobname?api-version=2026-03-15'"
   - where:
       verb: Get
       subject: ^WebJob$|^SlotWebJob$

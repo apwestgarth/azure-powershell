@@ -63,6 +63,9 @@ namespace Microsoft.Azure.Commands.WebApps.Cmdlets.AppServicePlans
         [ValidateNotNullOrEmpty]
         public bool PerSiteScaling { get; set; }
 
+        [Parameter(Mandatory = false, HelpMessage = "Whether or not to enable Async Scaling")]
+        public bool? AsyncScalingEnabled { get; set; }
+
         [Parameter(ParameterSetName = ParameterSet1Name, Mandatory = false, HelpMessage = "Specify this, App Service Plan will run Windows Containers")]
         public SwitchParameter HyperV { get; set; }
 
@@ -124,6 +127,15 @@ namespace Microsoft.Azure.Commands.WebApps.Cmdlets.AppServicePlans
                 Tags = (IDictionary<string, string>)CmdletHelpers.ConvertToStringDictionary(Tag),
                 Reserved = Linux.IsPresent
             };
+
+            if (AsyncScalingEnabled.HasValue)
+            {
+                var asyncScalingEnabledProperty = appServicePlan.GetType().GetProperty("AsyncScalingEnabled");
+                if (asyncScalingEnabledProperty != null && asyncScalingEnabledProperty.CanWrite)
+                {
+                    asyncScalingEnabledProperty.SetValue(appServicePlan, AsyncScalingEnabled.Value);
+                }
+            }
 
             AppServicePlan retPlan = null;
 
